@@ -2,9 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,43 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class helloWidget extends StatelessWidget {
-  const helloWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-
-// 动物，这里的name很有意思. 声明可选的是一种解决办法.
-class Animals {
-  String?  _name;
-  Int     age;
-  Animals(this.age);
-}
-
-
-class Hello extends StatelessWidget {
-  const Hello({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -67,10 +28,13 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-// 下划线带着的是私有的.
+// 私有的类
 class _MyHomePageState extends State<MyHomePage> {
+
+  // 状态
   int _counter = 0;
 
+  // 这个是一个私有的方法. 这个类里面的私有方法.
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -80,13 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
+   /* 这里都是配置文件.
+   * 本质上其实是三棵树的更新逻辑. 我们在更新widget的时候，element树上不会直接更新.而是优先复用
+   * 复用逻辑很比较的是canUpdate,canUpdate内部比较的是widget的类型和key.
+   * 其实，我们的原则是应该避免element的重建，优先复用.
+   * */
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -116,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: 40,
                 height: 40,
                 child: Text(
-                    '这个是控制啥的'
+                    '这个是控制啥的1232131312313'
                 ),
               ),
             )
