@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 这里有个问题是为什么title不是放在state里面.
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -31,10 +32,15 @@ class MyHomePage extends StatefulWidget {
 // 私有的类
 class _MyHomePageState extends State<MyHomePage> {
 
-  // 状态
+  /*
+  * 如果有这种非final的变量就只能放在state里面，
+  * 但是如果我们想获得ful里面的final变量的话，我们可以通过widget来获取
+  * 通过widgetful里面的变量在更换widget的时候都会更换.
+  * */
   int _counter = 0;
 
   // 这个是一个私有的方法. 这个类里面的私有方法.
+  // 至于这个set
   void _incrementCounter() {
     setState(() {
       _counter++;
