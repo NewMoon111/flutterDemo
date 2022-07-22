@@ -13,7 +13,8 @@ class Myapp extends StatelessWidget {
         appBar: AppBar(
           title: const Text("线性布局"),
         ),
-        body: Wrap(
+        body: Wrap
+          (
           direction: Axis.vertical,
 
           children: [
