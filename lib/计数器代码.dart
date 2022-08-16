@@ -21,6 +21,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+class ShareDateWidget extends InheritedWidget{
+
+  int data = 0;
+
+  ShareDateWidget({
+    Key? key,
+    required this.data,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  static ShareDateWidget? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ShareDateWidget>();
+  }
+
+  @override
+  bool updateShouldNotify(covariant ShareDateWidget oldWidget) {
+    // TODO: implement updateShouldNotify
+    return oldWidget.data != data;
+  }
+}
+
 // 这里有个问题是为什么title不是放在state里面.
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -61,41 +83,42 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                  minWidth: 100,
-                  minHeight: 100,
-                  maxHeight: 200,
-                  maxWidth: 200
+        child: ShareDateWidget(
+          data: _counter,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
               ),
-              child: Container(
-                color: Colors.green,
-                child: const Text(
-                    'hello 你说文字的这些东西需要我们重新设置值吗1111'
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                    minWidth: 100,
+                    minHeight: 100,
+                    maxHeight: 200,
+                    maxWidth: 200
+                ),
+                child: Container(
+                  color: Colors.green,
+                  child: _TestWidget(),
                 ),
               ),
-            ),
-            Container(
-              color: Colors.amber,
-              child: const SizedBox(
-                width: 40,
-                height: 40,
-                child: Text(
-                    '这个是控制啥的1232131312313'
+              Container(
+                color: Colors.amber,
+                child: const SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: Text(
+                      '这个是控制啥的1232131312313'
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -104,5 +127,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class _TestWidget extends StatefulWidget {
+  const _TestWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_TestWidget> createState() => _TestWidgetState();
+}
+
+
+class _TestWidgetState extends State<_TestWidget> {
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    print("上面的组件更新了");
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      ShareDateWidget.of(context)!.data.toString() + "h1h1"
+    );
+
   }
 }
